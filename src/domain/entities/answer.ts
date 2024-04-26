@@ -1,4 +1,4 @@
-import { randomUUID } from "node:crypto";
+import { Entity } from "../../core/entities/entity";
 
 interface AnswerProps {
   content: string;
@@ -6,16 +6,12 @@ interface AnswerProps {
   questionId: string;
 }
 
-export class Answer {
-  public id: string;
-  public content: string;
-  public authorId: string;
-  public questionId: string;
+export class Answer extends Entity<AnswerProps> {
+  get content() {
+    return this.props.content;
+  }
 
-  constructor({ content, authorId, questionId }: AnswerProps, id?: string) {
-    this.content = content;
-    this.authorId = authorId;
-    this.questionId = questionId;
-    this.id = id ?? randomUUID();
+  constructor(props: AnswerProps, id?: string) {
+    super(props, id);
   }
 }
