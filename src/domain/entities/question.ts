@@ -7,6 +7,9 @@ interface QuestionProps {
   slug: Slug;
   content: string;
   authorId: UniqueEntityID;
+  bestAnswerId?: UniqueEntityID;
+  createdAt: Date;
+  updatedAt?: Date;
 }
 
 export class Question extends Entity<QuestionProps> {
