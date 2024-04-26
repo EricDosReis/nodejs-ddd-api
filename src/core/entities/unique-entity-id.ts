@@ -11,7 +11,7 @@ export class UniqueEntityID {
     return this.value;
   }
 
-  constructor(value?: string) {
-    this.value = value ?? randomUUID();
+  constructor() {
+    this.value = randomUUID();
   }
 }

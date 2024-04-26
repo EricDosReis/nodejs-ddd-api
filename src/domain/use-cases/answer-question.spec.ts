@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 
+import { UniqueEntityID } from "../../core/entities/unique-entity-id";
 import type { Answer } from "../entities/answer";
 import type { AnswersRepository } from "../repositories/answers";
 import { AnswerQuestionUseCase } from "./answer-question";
@@ -14,8 +15,8 @@ it("should create an answer", async () => {
   const answerQuestion = new AnswerQuestionUseCase(answersRepositoryMock);
 
   const answer = await answerQuestion.execute({
-    questionId: "1",
-    instructorId: "1",
+    questionId: new UniqueEntityID(),
+    instructorId: new UniqueEntityID(),
     content: "New reply",
   });
 
