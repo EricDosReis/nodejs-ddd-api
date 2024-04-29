@@ -12,12 +12,12 @@ export class Slug {
    */
   static createFromText(text: string) {
     const normalizedText = text
-      .normalize("NFKD")
+      .normalize('NFKD')
       .toLowerCase()
       .trim()
-      .replace(/\s+/g, "-")
-      .replace(/--+/g, "-")
-      .replace(/-$/, "");
+      .replace(/\s+/g, '-')
+      .replace(/--+/g, '-')
+      .replace(/-$/, '');
 
     return new Slug(normalizedText);
   }
