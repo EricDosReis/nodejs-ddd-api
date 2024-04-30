@@ -1,17 +1,21 @@
 import type { QuestionsRepository } from '../repositories/questions';
 
-interface DeleteQuestionUseCaseArguments {
+interface EditQuestionUseCaseArguments {
   authorId: string;
   questionId: string;
+  title: string;
+  content: string;
 }
 
-export class DeleteQuestionUseCase {
+export class EditQuestionUseCase {
   constructor(private questionRepository: QuestionsRepository) {}
 
   async execute({
     authorId,
     questionId,
-  }: DeleteQuestionUseCaseArguments): Promise<void> {
+    title,
+    content,
+  }: EditQuestionUseCaseArguments): Promise<void> {
     const question = await this.questionRepository.findById(questionId);
 
     if (!question) {
@@ -24,6 +28,9 @@ export class DeleteQuestionUseCase {
       );
     }
 
-    await this.questionRepository.delete(question);
+    question.title = title;
+    question.content = content;
+
+    await this.questionRepository.save(question);
   }
 }

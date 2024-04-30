@@ -28,7 +28,7 @@ describe('Delete Answer', () => {
     expect(inMemoryAnswersRepository.items).toHaveLength(0);
   });
 
-  it('should be able to delete an answer from another user', async () => {
+  it('should not be able to delete an answer from another user', async () => {
     const answerId = 'answer-1';
     const authorId = 'author-1';
 

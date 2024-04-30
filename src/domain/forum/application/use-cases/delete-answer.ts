@@ -19,7 +19,9 @@ export class DeleteAnswerUseCase {
     }
 
     if (authorId !== answer.authorId.toString()) {
-      throw new Error("Permission denied, you are not the answer's owner.");
+      throw new Error(
+        'Permission denied, you are not the owner of the answer.',
+      );
     }
 
     await this.answerRepository.delete(answer);
