@@ -12,7 +12,7 @@ const answersRepositoryMock: AnswersRepository = {
 it('should create an answer', async () => {
   const answerQuestion = new AnswerQuestionUseCase(answersRepositoryMock);
 
-  const answer = await answerQuestion.execute({
+  const { answer } = await answerQuestion.execute({
     questionId: new UniqueEntityID(),
     instructorId: new UniqueEntityID(),
     content: 'New reply',
