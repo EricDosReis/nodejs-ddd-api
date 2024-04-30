@@ -1,22 +1,24 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import type { Answer } from '../../enterprise/entities/answer';
-import type { AnswersRepository } from '../repositories/answers';
+import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
 import { AnswerQuestionUseCase } from './answer-question';
 
-const answersRepositoryMock: AnswersRepository = {
-  create: async (answer: Answer) => {
-    return;
-  },
-};
+let inMemoryAnswersRepository: InMemoryAnswersRepository;
+let sut: AnswerQuestionUseCase;
 
-it('should create an answer', async () => {
-  const answerQuestion = new AnswerQuestionUseCase(answersRepositoryMock);
-
-  const { answer } = await answerQuestion.execute({
-    questionId: new UniqueEntityID(),
-    instructorId: new UniqueEntityID(),
-    content: 'New reply',
+describe('Create an answer', () => {
+  beforeEach(() => {
+    inMemoryAnswersRepository = new InMemoryAnswersRepository();
+    sut = new AnswerQuestionUseCase(inMemoryAnswersRepository);
   });
 
-  expect(answer.content).toEqual('New reply');
+  it('should create an answer', async () => {
+    const { answer } = await sut.execute({
+      questionId: new UniqueEntityID(),
+      instructorId: new UniqueEntityID(),
+      content: 'New reply',
+    });
+
+    expect(answer.content).toEqual('New reply');
+    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer.id);
+  });
 });

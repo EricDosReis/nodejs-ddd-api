@@ -1,22 +1,24 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
-import type { Question } from '../../enterprise/entities/question';
-import { QuestionsRepository } from '../repositories/questions';
+import { InMemoryQuestionsRepository } from 'test/repositories/in-memory-questions-repository';
 import { CreateQuestionUseCase } from './create-question';
 
-const questionsRepositoryMock: QuestionsRepository = {
-  create: async (question: Question) => {
-    return;
-  },
-};
+let inMemoryQuestionsRepository: InMemoryQuestionsRepository;
+let sut: CreateQuestionUseCase;
 
-it('should create a question', async () => {
-  const createQuestion = new CreateQuestionUseCase(questionsRepositoryMock);
-
-  const { question } = await createQuestion.execute({
-    title: 'This is my question',
-    authorId: new UniqueEntityID(),
-    content: 'Question content',
+describe('Create Question', () => {
+  beforeEach(() => {
+    inMemoryQuestionsRepository = new InMemoryQuestionsRepository();
+    sut = new CreateQuestionUseCase(inMemoryQuestionsRepository);
   });
 
-  expect(question.content).toEqual('Question content');
+  it('should create a question', async () => {
+    const { question } = await sut.execute({
+      title: 'This is my question',
+      authorId: new UniqueEntityID(),
+      content: 'Question content',
+    });
+
+    expect(question.content).toEqual('Question content');
+    expect(inMemoryQuestionsRepository.items[0].id).toEqual(question.id);
+  });
 });
