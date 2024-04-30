@@ -5,7 +5,7 @@ import type { Optional } from '@/core/entities/types/optional';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import { Slug } from './value-objects/slug';
 
-interface QuestionProps {
+export interface QuestionProps {
   title: string;
   slug: Slug;
   content: string;
