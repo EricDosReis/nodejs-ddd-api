@@ -1,5 +1,8 @@
+import { Pagination } from '@/core/entities/types/pagination';
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions';
 import { Question } from '@/domain/forum/enterprise/entities/question';
+
+const ITEMS_PER_PAGE = 20;
 
 export class InMemoryQuestionsRepository implements QuestionsRepository {
   public items: Question[] = [];
@@ -30,7 +33,7 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     return question;
   }
 
-  async findBySlug(slug: string): Promise<Question | null> {
+  async findBySlug(slug: string) {
     const question = this.items.find(item => item.slug.value === slug);
 
     if (!question) {
@@ -38,5 +41,13 @@ export class InMemoryQuestionsRepository implements QuestionsRepository {
     }
 
     return question;
+  }
+
+  async findManyRecent({ page }: Pagination) {
+    const questions = this.items
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+    return questions;
   }
 }
