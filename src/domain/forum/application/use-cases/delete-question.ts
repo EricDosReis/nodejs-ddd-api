@@ -6,13 +6,13 @@ interface DeleteQuestionUseCaseArguments {
 }
 
 export class DeleteQuestionUseCase {
-  constructor(private questionRepository: QuestionsRepository) {}
+  constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
     authorId,
     questionId,
   }: DeleteQuestionUseCaseArguments): Promise<void> {
-    const question = await this.questionRepository.findById(questionId);
+    const question = await this.questionsRepository.findById(questionId);
 
     if (!question) {
       throw new Error('Question not found.');
@@ -20,10 +20,10 @@ export class DeleteQuestionUseCase {
 
     if (authorId !== question.authorId.toString()) {
       throw new Error(
-        'Permission denied, you are not the owner of the question.',
+        'Permission denied, you are not the author of the question.',
       );
     }
 
-    await this.questionRepository.delete(question);
+    await this.questionsRepository.delete(question);
   }
 }

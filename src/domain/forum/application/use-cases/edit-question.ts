@@ -13,7 +13,7 @@ interface EditQuestionUseCaseResponse {
 }
 
 export class EditQuestionUseCase {
-  constructor(private questionRepository: QuestionsRepository) {}
+  constructor(private questionsRepository: QuestionsRepository) {}
 
   async execute({
     authorId,
@@ -21,7 +21,7 @@ export class EditQuestionUseCase {
     title,
     content,
   }: EditQuestionUseCaseArguments): Promise<EditQuestionUseCaseResponse> {
-    const question = await this.questionRepository.findById(questionId);
+    const question = await this.questionsRepository.findById(questionId);
 
     if (!question) {
       throw new Error('Question not found.');
@@ -29,14 +29,14 @@ export class EditQuestionUseCase {
 
     if (authorId !== question.authorId.toString()) {
       throw new Error(
-        'Permission denied, you are not the owner of the question.',
+        'Permission denied, you are not the author of the question.',
       );
     }
 
     question.title = title;
     question.content = content;
 
-    await this.questionRepository.save(question);
+    await this.questionsRepository.save(question);
 
     return {
       question,

@@ -6,13 +6,13 @@ interface DeleteAnswerUseCaseArguments {
 }
 
 export class DeleteAnswerUseCase {
-  constructor(private answerRepository: AnswersRepository) {}
+  constructor(private answersRepository: AnswersRepository) {}
 
   async execute({
     authorId,
     answerId,
   }: DeleteAnswerUseCaseArguments): Promise<void> {
-    const answer = await this.answerRepository.findById(answerId);
+    const answer = await this.answersRepository.findById(answerId);
 
     if (!answer) {
       throw new Error('Question not found.');
@@ -20,10 +20,10 @@ export class DeleteAnswerUseCase {
 
     if (authorId !== answer.authorId.toString()) {
       throw new Error(
-        'Permission denied, you are not the owner of the answer.',
+        'Permission denied, you are not the author of the answer.',
       );
     }
 
-    await this.answerRepository.delete(answer);
+    await this.answersRepository.delete(answer);
   }
 }
