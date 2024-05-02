@@ -1,6 +1,6 @@
-import { Pagination } from '@/core/entities/types/pagination';
+import type { Pagination } from '@/core/entities/types/pagination';
 import { QuestionsRepository } from '@/domain/forum/application/repositories/questions';
-import { Question } from '@/domain/forum/enterprise/entities/question';
+import type { Question } from '@/domain/forum/enterprise/entities/question';
 
 const ITEMS_PER_PAGE = 20;
 

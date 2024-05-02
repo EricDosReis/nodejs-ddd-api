@@ -1,5 +1,8 @@
+import type { Pagination } from '@/core/entities/types/pagination';
 import { AnswersRepository } from '@/domain/forum/application/repositories/answers';
-import { Answer } from '@/domain/forum/enterprise/entities/answer';
+import type { Answer } from '@/domain/forum/enterprise/entities/answer';
+
+const ITEMS_PER_PAGE = 20;
 
 export class InMemoryAnswersRepository implements AnswersRepository {
   public items: Answer[] = [];
@@ -28,5 +31,13 @@ export class InMemoryAnswersRepository implements AnswersRepository {
     }
 
     return answer;
+  }
+
+  async findManyByQuestionId(questionId: string, { page }: Pagination) {
+    const answers = this.items
+      .filter(item => item.questionId.toString() === questionId)
+      .slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+    return answers;
   }
 }
