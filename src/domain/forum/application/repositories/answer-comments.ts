@@ -1,4 +1,4 @@
-import type { Pagination } from '@/core/entities/types/pagination';
+import type { Pagination } from '@/core/types/pagination';
 import type { AnswerComment } from '../../enterprise/entities/answer-comment';
 
 export interface AnswerCommentsRepository {

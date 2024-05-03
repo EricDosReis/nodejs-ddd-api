@@ -1,6 +1,6 @@
 import { Entity } from '@/core/entities/entity';
-import type { Optional } from '@/core/entities/types/optional';
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import type { Optional } from '@/core/types/optional';
 
 export interface AnswerProps {
   content: string;

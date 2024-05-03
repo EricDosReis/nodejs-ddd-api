@@ -1,4 +1,4 @@
-import { Pagination } from '@/core/entities/types/pagination';
+import { Pagination } from '@/core/types/pagination';
 import type { QuestionComment } from '../../enterprise/entities/question-comment';
 
 export interface QuestionCommentsRepository {

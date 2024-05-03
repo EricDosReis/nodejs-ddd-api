@@ -1,4 +1,4 @@
-import type { Pagination } from '@/core/entities/types/pagination';
+import type { Pagination } from '@/core/types/pagination';
 import type { Question } from '../../enterprise/entities/question';
 
 export interface QuestionsRepository {
