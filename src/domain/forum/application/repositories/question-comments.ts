@@ -1,5 +1,7 @@
 import type { QuestionComment } from '../../enterprise/entities/question-comment';
 
 export interface QuestionCommentsRepository {
-  create(question: QuestionComment): Promise<void>;
+  create(questionComment: QuestionComment): Promise<void>;
+  findById(questionCommentId: string): Promise<QuestionComment | null>;
+  delete(question: QuestionComment): Promise<void>;
 }

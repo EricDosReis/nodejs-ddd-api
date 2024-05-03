@@ -18,7 +18,7 @@ export class DeleteQuestionUseCase {
       throw new Error('Question not found.');
     }
 
-    if (authorId !== question.authorId.toString()) {
+    if (question.authorId.toString() !== authorId) {
       throw new Error(
         'Permission denied, you are not the author of the question.',
       );

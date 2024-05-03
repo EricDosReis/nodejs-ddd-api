@@ -6,7 +6,7 @@ export class InMemoryAnswerCommentsRepository
 {
   public items: AnswerComment[] = [];
 
-  async create(answer: AnswerComment) {
-    this.items.push(answer);
+  async create(answerComment: AnswerComment) {
+    this.items.push(answerComment);
   }
 }
