@@ -1,5 +1,8 @@
+import type { Pagination } from '@/core/entities/types/pagination';
 import { QuestionCommentsRepository } from '@/domain/forum/application/repositories/question-comments';
 import type { QuestionComment } from '@/domain/forum/enterprise/entities/question-comment';
+
+const ITEMS_PER_PAGE = 20;
 
 export class InMemoryQuestionCommentsRepository
   implements QuestionCommentsRepository
@@ -26,5 +29,13 @@ export class InMemoryQuestionCommentsRepository
     }
 
     return questionComment;
+  }
+
+  async findManyByQuestionId(questionId: string, { page }: Pagination) {
+    const questionComments = this.items
+      .filter(item => item.questionId.toString() === questionId)
+      .slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+    return questionComments;
   }
 }

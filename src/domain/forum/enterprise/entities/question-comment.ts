@@ -25,6 +25,10 @@ export class QuestionComment extends Entity<QuestionCommentProps> {
     return this.props.authorId;
   }
 
+  get questionId() {
+    return this.props.questionId;
+  }
+
   get createdAt() {
     return this.props.createdAt;
   }
