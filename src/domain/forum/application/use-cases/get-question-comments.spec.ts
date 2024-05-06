@@ -28,12 +28,12 @@ describe('Get Question Comments', () => {
       }),
     );
 
-    const { questionComments } = await sut.execute({
+    const { value } = await sut.execute({
       questionId: questionId.toString(),
       page: 1,
     });
 
-    expect(questionComments).toHaveLength(2);
+    expect(value?.questionComments).toHaveLength(2);
   });
 
   it('should get paginated question comments', async () => {
@@ -47,11 +47,11 @@ describe('Get Question Comments', () => {
       );
     }
 
-    const { questionComments } = await sut.execute({
+    const { value } = await sut.execute({
       questionId: questionId.toString(),
       page: 2,
     });
 
-    expect(questionComments).toHaveLength(2);
+    expect(value?.questionComments).toHaveLength(2);
   });
 });

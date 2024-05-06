@@ -1,14 +1,19 @@
-import { QuestionComment } from '../../enterprise/entities/question-comment';
-import { QuestionCommentsRepository } from '../repositories/question-comments';
+import type { Either } from '@/core/error-handling/either';
+import { success } from '@/core/error-handling/success';
+import type { QuestionComment } from '../../enterprise/entities/question-comment';
+import type { QuestionCommentsRepository } from '../repositories/question-comments';
 
 interface GetQuestionCommentsUseCaseArguments {
   questionId: string;
   page: number;
 }
 
-interface GetQuestionCommentsUseCaseResponse {
-  questionComments: QuestionComment[];
-}
+type GetQuestionCommentsUseCaseResponse = Either<
+  null,
+  {
+    questionComments: QuestionComment[];
+  }
+>;
 
 export class GetQuestionCommentsUseCase {
   constructor(private questionCommentsRepository: QuestionCommentsRepository) {}
@@ -22,6 +27,6 @@ export class GetQuestionCommentsUseCase {
         page,
       });
 
-    return { questionComments };
+    return success({ questionComments });
   }
 }

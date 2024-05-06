@@ -27,12 +27,12 @@ describe('Get Question Answers', () => {
       }),
     );
 
-    const { answers } = await sut.execute({
+    const { value } = await sut.execute({
       questionId: questionId.toString(),
       page: 1,
     });
 
-    expect(answers).toHaveLength(2);
+    expect(value?.answers).toHaveLength(2);
   });
 
   it('should get paginated question answers', async () => {
@@ -46,11 +46,11 @@ describe('Get Question Answers', () => {
       );
     }
 
-    const { answers } = await sut.execute({
+    const { value } = await sut.execute({
       questionId: questionId.toString(),
       page: 2,
     });
 
-    expect(answers).toHaveLength(2);
+    expect(value?.answers).toHaveLength(2);
   });
 });

@@ -30,9 +30,9 @@ describe('Get Recent Questions', () => {
       }),
     );
 
-    const { questions } = await sut.execute({ page: 1 });
+    const { value } = await sut.execute({ page: 1 });
 
-    expect(questions).toEqual([
+    expect(value?.questions).toEqual([
       expect.objectContaining({
         createdAt: new Date(2023, 0, 23),
       }),
@@ -50,12 +50,12 @@ describe('Get Recent Questions', () => {
       await inMemoryQuestionsRepository.create(makeQuestion());
     }
 
-    const { questions: firstPageQuestions } = await sut.execute({ page: 1 });
+    const { value: firstPageData } = await sut.execute({ page: 1 });
 
-    expect(firstPageQuestions).toHaveLength(20);
+    expect(firstPageData?.questions).toHaveLength(20);
 
-    const { questions: secondPageQuestions } = await sut.execute({ page: 2 });
+    const { value: secondPageData } = await sut.execute({ page: 2 });
 
-    expect(secondPageQuestions).toHaveLength(2);
+    expect(secondPageData?.questions).toHaveLength(2);
   });
 });

@@ -3,6 +3,7 @@ import { faker } from '@faker-js/faker';
 import { makeAnswer } from 'test/factories/make-answer';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
 import { EditAnswerUseCase } from './edit-answer';
+import { NotAllowedError } from './errors/not-allowed';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
 let sut: EditAnswerUseCase;
@@ -44,8 +45,9 @@ describe('Edit Answer', () => {
       ),
     ];
 
-    expect(() => {
-      return sut.execute({ authorId, answerId, content });
-    }).rejects.toBeInstanceOf(Error);
+    const result = await sut.execute({ authorId, answerId, content });
+
+    expect(result.isFailure()).toBe(true);
+    expect(result.value).toBeInstanceOf(NotAllowedError);
   });
 });

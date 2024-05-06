@@ -1,5 +1,10 @@
+import type { Either } from '@/core/error-handling/either';
+import { failure } from '@/core/error-handling/failure';
+import { success } from '@/core/error-handling/success';
 import type { Question } from '../../enterprise/entities/question';
 import type { QuestionsRepository } from '../repositories/questions';
+import { NotAllowedError } from './errors/not-allowed';
+import { ResourceNotFoundError } from './errors/resource-not-found';
 
 interface EditQuestionUseCaseArguments {
   authorId: string;
@@ -8,9 +13,12 @@ interface EditQuestionUseCaseArguments {
   content: string;
 }
 
-interface EditQuestionUseCaseResponse {
-  question: Question;
-}
+type EditQuestionUseCaseResponse = Either<
+  ResourceNotFoundError | NotAllowedError,
+  {
+    question: Question;
+  }
+>;
 
 export class EditQuestionUseCase {
   constructor(private questionsRepository: QuestionsRepository) {}
@@ -24,13 +32,11 @@ export class EditQuestionUseCase {
     const question = await this.questionsRepository.findById(questionId);
 
     if (!question) {
-      throw new Error('Question not found.');
+      return failure(new ResourceNotFoundError());
     }
 
     if (authorId !== question.authorId.toString()) {
-      throw new Error(
-        'Permission denied, you are not the author of the question.',
-      );
+      return failure(new NotAllowedError());
     }
 
     question.title = title;
@@ -38,8 +44,8 @@ export class EditQuestionUseCase {
 
     await this.questionsRepository.save(question);
 
-    return {
+    return success({
       question,
-    };
+    });
   }
 }

@@ -12,13 +12,13 @@ describe('Create an answer', () => {
   });
 
   it('should create an answer', async () => {
-    const { answer } = await sut.execute({
+    const { value } = await sut.execute({
       questionId: new UniqueEntityID(),
       instructorId: new UniqueEntityID(),
       content: 'New reply',
     });
 
-    expect(answer.content).toEqual('New reply');
-    expect(inMemoryAnswersRepository.items[0].id).toEqual(answer.id);
+    expect(value?.answer.content).toEqual('New reply');
+    expect(inMemoryAnswersRepository.items[0].id).toEqual(value?.answer.id);
   });
 });

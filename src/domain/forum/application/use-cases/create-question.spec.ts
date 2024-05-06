@@ -12,13 +12,13 @@ describe('Create Question', () => {
   });
 
   it('should create a question', async () => {
-    const { question } = await sut.execute({
+    const { value } = await sut.execute({
       title: 'This is my question',
       authorId: new UniqueEntityID(),
       content: 'Question content',
     });
 
-    expect(question.content).toEqual('Question content');
-    expect(inMemoryQuestionsRepository.items[0].id).toEqual(question.id);
+    expect(value?.question.content).toEqual('Question content');
+    expect(inMemoryQuestionsRepository.items[0].id).toEqual(value?.question.id);
   });
 });
