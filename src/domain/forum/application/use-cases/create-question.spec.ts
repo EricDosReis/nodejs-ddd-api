@@ -14,11 +14,13 @@ describe('Create Question', () => {
   it('should create a question', async () => {
     const { value } = await sut.execute({
       title: 'This is my question',
-      authorId: new UniqueEntityID(),
       content: 'Question content',
+      attachmentsIds: ['1', '2'],
+      authorId: new UniqueEntityID(),
     });
 
     expect(value?.question.content).toEqual('Question content');
     expect(inMemoryQuestionsRepository.items[0].id).toEqual(value?.question.id);
+    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2);
   });
 });
