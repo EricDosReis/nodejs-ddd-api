@@ -21,6 +21,8 @@ describe('Create Question', () => {
 
     expect(value?.question.content).toEqual('Question content');
     expect(inMemoryQuestionsRepository.items[0].id).toEqual(value?.question.id);
-    expect(inMemoryQuestionsRepository.items[0].attachments).toHaveLength(2);
+    expect(
+      inMemoryQuestionsRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2);
   });
 });

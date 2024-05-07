@@ -3,6 +3,7 @@ import type { Either } from '@/core/error-handling/either';
 import { success } from '@/core/error-handling/success';
 import { Question } from '../../enterprise/entities/question';
 import { QuestionAttachment } from '../../enterprise/entities/question-attachment';
+import { QuestionAttachmentWatchedList } from '../../enterprise/entities/question-attachment-watched-list';
 import type { QuestionsRepository } from '../repositories/questions';
 
 interface CreateQuestionUseCaseArguments {
@@ -41,7 +42,9 @@ export class CreateQuestionUseCase {
       });
     });
 
-    question.attachments = questionAttachments;
+    question.attachments = new QuestionAttachmentWatchedList(
+      questionAttachments,
+    );
 
     await this.questionsRepository.create(question);
 
