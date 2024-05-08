@@ -1,13 +1,21 @@
 import { UniqueEntityID } from '@/core/entities/unique-entity-id';
+import { InMemoryAnswerAttachmentsRepository } from 'test/repositories/in-memory-answer-attachments-repository';
 import { InMemoryAnswersRepository } from 'test/repositories/in-memory-answers-repository';
 import { AnswerQuestionUseCase } from './answer-question';
 
 let inMemoryAnswersRepository: InMemoryAnswersRepository;
+let inMemoryAnswerAttachmentsRepository: InMemoryAnswerAttachmentsRepository;
 let sut: AnswerQuestionUseCase;
 
 describe('Create an answer', () => {
   beforeEach(() => {
-    inMemoryAnswersRepository = new InMemoryAnswersRepository();
+    inMemoryAnswerAttachmentsRepository =
+      new InMemoryAnswerAttachmentsRepository();
+
+    inMemoryAnswersRepository = new InMemoryAnswersRepository(
+      inMemoryAnswerAttachmentsRepository,
+    );
+
     sut = new AnswerQuestionUseCase(inMemoryAnswersRepository);
   });
 
@@ -16,9 +24,13 @@ describe('Create an answer', () => {
       questionId: new UniqueEntityID(),
       instructorId: new UniqueEntityID(),
       content: 'New reply',
+      attachmentsIds: ['1', '2'],
     });
 
     expect(value?.answer.content).toEqual('New reply');
     expect(inMemoryAnswersRepository.items[0].id).toEqual(value?.answer.id);
+    expect(
+      inMemoryAnswersRepository.items[0].attachments.currentItems,
+    ).toHaveLength(2);
   });
 });

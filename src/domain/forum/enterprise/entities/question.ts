@@ -49,6 +49,8 @@ export class Question extends AggregateRoot<QuestionProps> {
 
   set attachments(attachments: QuestionAttachmentWatchedList) {
     this.props.attachments = attachments;
+
+    this.touch();
   }
 
   get authorId() {

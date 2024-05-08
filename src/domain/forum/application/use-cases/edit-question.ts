@@ -48,11 +48,11 @@ export class EditQuestionUseCase {
       return failure(new NotAllowedError());
     }
 
-    const currentQuestionAttchments =
+    const currentQuestionAttachments =
       await this.questionAttachmentRepository.findManyByQuestionId(questionId);
 
     const questionAttachmentWatchedList = new QuestionAttachmentWatchedList(
-      currentQuestionAttchments,
+      currentQuestionAttachments,
     );
 
     const questionAttachments = attachmentsIds.map(attachmentId => {
