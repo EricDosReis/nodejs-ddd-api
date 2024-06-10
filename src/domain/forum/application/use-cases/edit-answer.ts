@@ -2,13 +2,13 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import type { Either } from '@/core/error-handling/either';
 import { failure } from '@/core/error-handling/failure';
 import { success } from '@/core/error-handling/success';
+import { NotAllowedError } from '@/core/errors/not-allowed';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found';
 import type { Answer } from '../../enterprise/entities/answer';
 import { AnswerAttachment } from '../../enterprise/entities/answer-attachment';
 import { AnswerAttachmentWatchedList } from '../../enterprise/entities/answer-attachment-watched-list';
 import { AnswerAttachmentsRepository } from '../repositories/answer-attachments';
 import type { AnswersRepository } from '../repositories/answers';
-import { NotAllowedError } from './errors/not-allowed';
-import { ResourceNotFoundError } from './errors/resource-not-found';
 
 interface EditAnswerUseCaseArguments {
   authorId: string;

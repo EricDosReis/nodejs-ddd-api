@@ -2,10 +2,10 @@ import { UniqueEntityID } from '@/core/entities/unique-entity-id';
 import type { Either } from '@/core/error-handling/either';
 import { failure } from '@/core/error-handling/failure';
 import { success } from '@/core/error-handling/success';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found';
 import { QuestionComment } from '../../enterprise/entities/question-comment';
 import type { QuestionCommentsRepository } from '../repositories/question-comments';
 import type { QuestionsRepository } from '../repositories/questions';
-import { ResourceNotFoundError } from './errors/resource-not-found';
 
 interface CommentOnQuestionUseCaseArguments {
   content: string;

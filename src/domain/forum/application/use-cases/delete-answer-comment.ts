@@ -1,9 +1,9 @@
 import type { Either } from '@/core/error-handling/either';
 import { failure } from '@/core/error-handling/failure';
 import { success } from '@/core/error-handling/success';
+import { NotAllowedError } from '@/core/errors/not-allowed';
+import { ResourceNotFoundError } from '@/core/errors/resource-not-found';
 import type { AnswerCommentsRepository } from '../repositories/answer-comments';
-import { NotAllowedError } from './errors/not-allowed';
-import { ResourceNotFoundError } from './errors/resource-not-found';
 
 interface DeleteAnswerCommentUseCaseArguments {
   authorId: string;
