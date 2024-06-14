@@ -27,17 +27,19 @@ class CustomAggregate extends AggregateRoot<null> {
   }
 }
 
-describe('domain events', () => {
-  const callbackSpy = vi.fn();
+describe('Domain Events', () => {
+  it('shoulb create and dispatch an event', () => {
+    const callbackSpy = vi.fn();
 
-  DomainEvents.register(callbackSpy, CustomAggregateCreated.name);
+    DomainEvents.register(callbackSpy, CustomAggregateCreated.name);
 
-  const aggregate = CustomAggregate.create();
+    const aggregate = CustomAggregate.create();
 
-  expect(aggregate.domainEvents).toHaveLength(1);
+    expect(aggregate.domainEvents).toHaveLength(1);
 
-  DomainEvents.dispatchEventsForAggregate(aggregate.id);
+    DomainEvents.dispatchEventsForAggregate(aggregate.id);
 
-  expect(callbackSpy).toHaveBeenCalled();
-  expect(aggregate.domainEvents).toHaveLength(0);
+    expect(callbackSpy).toHaveBeenCalled();
+    expect(aggregate.domainEvents).toHaveLength(0);
+  });
 });

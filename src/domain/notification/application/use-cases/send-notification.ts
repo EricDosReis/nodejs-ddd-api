@@ -4,13 +4,13 @@ import { success } from '@/core/error-handling/success';
 import { Notification } from '../../enterprise/entities/notification';
 import type { NotificationsRepository } from '../repositories/notifications';
 
-interface SendNotificationUseCaseArguments {
+export interface SendNotificationUseCaseArguments {
   recipientId: string;
   title: string;
   content: string;
 }
 
-type SendNotificationUseCaseResponse = Either<
+export type SendNotificationUseCaseResponse = Either<
   null,
   {
     notification: Notification;
